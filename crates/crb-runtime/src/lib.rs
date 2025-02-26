@@ -1,3 +1,6 @@
+//! Crate `crb-runtime` is one of the fundamental crates of the entire CRB system.
+//! It contains various runtime interfaces and serves as the foundation for building compositional tasks.
+
 pub mod context;
 pub mod controller;
 pub mod error;
