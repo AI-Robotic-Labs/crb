@@ -33,6 +33,12 @@ pub struct Timer {
     stream: Option<TimerStream>,
 }
 
+impl Default for Timer {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Timer {
     pub fn new() -> Self {
         let (tx, rx) = mpsc::unbounded_channel();
@@ -97,12 +103,10 @@ impl Stream for TimerStream {
                             let scheduled_at = pending.baseline + pending.delay;
                             if scheduled_at <= now {
                                 return self.timeout(scheduled_at);
+                            } else if let Some(sleep) = &mut self.sleep {
+                                sleep.as_mut().reset(scheduled_at.into());
                             } else {
-                                if let Some(sleep) = &mut self.sleep {
-                                    sleep.as_mut().reset(scheduled_at.into());
-                                } else {
-                                    self.sleep = Some(Box::pin(sleep_until(scheduled_at.into())));
-                                }
+                                self.sleep = Some(Box::pin(sleep_until(scheduled_at.into())));
                             }
                         }
                     }

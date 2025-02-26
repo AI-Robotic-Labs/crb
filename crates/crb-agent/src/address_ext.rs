@@ -99,7 +99,7 @@ where
     }
 }
 
-impl<'a, A> Equip<A> for &'a Context<A>
+impl<A> Equip<A> for &Context<A>
 where
     A: Agent,
 {
