@@ -83,12 +83,20 @@ pub trait Agent: Sized + Send + 'static {
         log::error!("Agent [{}] failed: {err}", type_name::<Self>());
     }
 
+    /// The `rollback` method is called when the agent is completely terminated due to an error.
+    /// In this case, the method receives a reference to the agent instance, if it was successfully
+    /// preserved, as well as the error that caused the agent's runtime to fail fatally.
+    /// Additionally, a context is available to extract additional data.
     async fn rollback(_this: Option<&mut Self>, _err: Error, _ctx: &mut Context<Self>) {}
 
+    /// The `finalize` method is called when the agent has fully terminated. This method has access
+    /// to the context. By default, its implementation calls another agent method, `end`.
     fn finalize(&mut self, _ctx: &mut Context<Self>) {
         self.end()
     }
 
+    /// The `end` method is called when the agent's runtime has fully terminated to perform
+    /// final actions with the agent.
     fn end(&mut self) {}
 }
 
