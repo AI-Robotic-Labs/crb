@@ -5,10 +5,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.95"
-async-trait = "0.1.83"
+anyhow = "1.0.96"
+async-trait = "0.1.86"
 axum = "0.8.1"
 crb.path = "../../crates/crb"
 futures = "0.3.31"
 http = "1.2.0"
-tokio = { version = "1.42.0", features = ["full"] }
+tokio = { version = "1.43.0", features = ["full"] }

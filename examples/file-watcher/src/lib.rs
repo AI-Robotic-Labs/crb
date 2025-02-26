@@ -1,11 +1,10 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use crb::agent::{
-    Address, Agent, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone,
-    ToAddress,
+    Address, Agent, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone, ToAddress,
 };
 use crb::core::{time::Duration, Slot};
-use crb::superagent::{Timer, StreamSession, Timeout};
+use crb::superagent::{StreamSession, Timeout, Timer};
 use notify::{
     recommended_watcher, Event, EventHandler, RecommendedWatcher, RecursiveMode, Watcher,
 };

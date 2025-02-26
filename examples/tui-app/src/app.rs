@@ -2,7 +2,7 @@ use crate::events::EventsDrainer;
 use crate::state::AppState;
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, Context, DoAsync, DoSync, Next, OnEvent, ManagedContext};
+use crb::agent::{Agent, AgentSession, Context, DoAsync, DoSync, ManagedContext, Next, OnEvent};
 use crb::superagent::{Supervisor, SupervisorSession};
 use crossterm::event::{Event, KeyCode};
 use ratatui::DefaultTerminal;
