@@ -9,7 +9,7 @@ readme = "README.md"
 
 [dependencies]
 crb-agent.workspace = true
-crb-core.workspace = true
+crb-core = { workspace = true, default-features = false }
 crb-runtime.workspace = true
 crb-send.workspace = true
 crb-superagent.workspace = true
@@ -23,4 +23,6 @@ futures.workspace = true
 tokio.workspace = true
 
 [features]
+std = ["crb-core/std"]
+wasm = ["crb-core/wasm"]
 sync = ["crb-agent/sync"]

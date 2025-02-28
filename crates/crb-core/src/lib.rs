@@ -3,6 +3,12 @@
 
 #![warn(missing_docs)]
 
+#[cfg(feature = "std")]
+use crb_core_std as crb_core_impl;
+
+#[cfg(feature = "wasm")]
+use crb_core_wasm as crb_core_impl;
+
 pub use futures;
 pub use uuid;
 

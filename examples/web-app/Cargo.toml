@@ -6,7 +6,9 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.96"
 async-trait = "0.1.86"
-crb = { path = "../../crates/crb", default-features = false }
+console_error_panic_hook = "0.1.7"
+crb = { path = "../../crates/crb", default-features = false, features = ["wasm"] }
 log = "0.4.26"
+tokio_with_wasm = { version = "0.8.2", features = ["rt", "macros"] }
 wasm-logger = "0.2.0"
 yew = { version = "0.21.0", features = ["csr"] }

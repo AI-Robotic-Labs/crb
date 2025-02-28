@@ -12,6 +12,8 @@ derive_more.workspace = true
 event-listener = "5.4.0"
 futures.workspace = true
 thiserror.workspace = true
+crb-core-std = { path = "../crb-core-std", optional = true }
+crb-core-wasm = { path = "../crb-core-wasm", optional = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 tokio = { version = "1.43.0", features = ["sync", "rt", "time"] }
@@ -25,3 +27,7 @@ uuid = { version = "1.15.0", default-features = false, features = ["v4", "v5", "
 wasm-bindgen-futures = "0.4.50"
 js-sys = "0.3.77"
 web-sys = { version = "0.3.77", features = ["Performance", "Window"] }
+
+[features]
+std = ["crb-core-std"]
+wasm = ["crb-core-wasm"]

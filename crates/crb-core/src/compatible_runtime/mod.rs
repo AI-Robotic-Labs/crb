@@ -2,7 +2,13 @@
 //! and non-WASM environments.
 
 pub use tokio::sync::{self, mpsc, oneshot, watch};
-pub use tokio::time;
+
+/// A compatible time module.
+pub mod time {
+    pub use crate::crb_core_impl::Instant;
+    pub use tokio::time::{sleep_until, timeout, Duration, Sleep};
+}
+
 pub use tokio::{
     spawn,
     task::{spawn_local, JoinHandle},

@@ -1,0 +1,9 @@
+[package]
+name = "crb-core-std"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+tokio = { version = "1.43.0", features = ["time"] }
