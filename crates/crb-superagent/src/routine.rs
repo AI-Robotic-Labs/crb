@@ -1,18 +1,15 @@
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
-use crb_agent::{Agent, AgentSession, DoAsync, DoSync, Next};
+use crb_agent::{Agent, AgentSession, DoAsync, Next};
 
 #[async_trait]
 pub trait AsyncRoutine: Send + 'static {
     async fn routine(&mut self) -> Result<()>;
 }
 
-pub trait SyncRoutine: Send + 'static {
-    fn routine(&mut self) -> Result<()>;
-}
-
 pub enum Routine {
     AsyncRoutine(Box<dyn AsyncRoutine>),
+    #[cfg(feature = "sync")]
     SyncRoutine(Box<dyn SyncRoutine>),
     Detached,
 }
@@ -20,10 +17,6 @@ pub enum Routine {
 impl Routine {
     pub fn new_async<R: AsyncRoutine>(routine: R) -> Self {
         Self::AsyncRoutine(Box::new(routine))
-    }
-
-    pub fn new_sync<R: SyncRoutine>(routine: R) -> Self {
-        Self::SyncRoutine(Box::new(routine))
     }
 }
 
@@ -35,6 +28,7 @@ impl Agent for Routine {
         std::mem::swap(self, &mut detached);
         match detached {
             Self::AsyncRoutine(routine) => Next::do_async(routine),
+            #[cfg(feature = "sync")]
             Self::SyncRoutine(routine) => Next::do_sync(routine),
             Self::Detached => Next::fail(anyhow!("Detached routine")),
         }
@@ -49,10 +43,29 @@ impl DoAsync<Box<dyn AsyncRoutine>> for Routine {
     }
 }
 
-#[async_trait]
-impl DoSync<Box<dyn SyncRoutine>> for Routine {
-    fn repeat(&mut self, boxed: &mut Box<dyn SyncRoutine>) -> Result<Option<Next<Self>>> {
-        boxed.routine()?;
-        Ok(None)
+#[cfg(feature = "sync")]
+pub use do_sync::SyncRoutine;
+
+#[cfg(feature = "sync")]
+mod do_sync {
+    use super::*;
+    use crb_agent::DoSync;
+
+    impl Routine {
+        pub fn new_sync<R: SyncRoutine>(routine: R) -> Self {
+            Self::SyncRoutine(Box::new(routine))
+        }
+    }
+
+    pub trait SyncRoutine: Send + 'static {
+        fn routine(&mut self) -> Result<()>;
+    }
+
+    #[async_trait]
+    impl DoSync<Box<dyn SyncRoutine>> for Routine {
+        fn repeat(&mut self, boxed: &mut Box<dyn SyncRoutine>) -> Result<Option<Next<Self>>> {
+            boxed.routine()?;
+            Ok(None)
+        }
     }
 }

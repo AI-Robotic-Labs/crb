@@ -1,6 +1,8 @@
 pub mod async_fn;
 pub mod reporting;
 pub mod runtime;
+
+#[cfg(feature = "sync")]
 pub mod sync_fn;
 
 pub use runtime::RunMission;
