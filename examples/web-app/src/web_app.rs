@@ -12,7 +12,7 @@ impl Component for WebApp {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <p>{ "Web App, crabs!" }</p>
+            <p>{ "Web App, crabs! 🦀" }</p>
         }
     }
 }
