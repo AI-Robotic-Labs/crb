@@ -8,4 +8,3 @@ repository.workspace = true
 [dependencies]
 tokio_with_wasm = { version = "0.8.2", features = ["rt", "macros"] }
 web-time = "1.1.0"
-tokio = { workspace = true, features = ["rt"] }

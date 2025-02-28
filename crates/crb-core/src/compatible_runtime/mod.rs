@@ -6,7 +6,8 @@ pub use tokio::sync::{self, mpsc, oneshot, watch};
 /// A compatible time module.
 pub mod time {
     pub use crate::crb_core_impl::Instant;
-    pub use tokio::time::{sleep_until, timeout, Duration, Sleep};
+    pub use crate::crb_core_impl::time::{timeout};
+    pub use tokio::time::{sleep_until, Duration, Sleep};
 }
 
 pub use crate::crb_core_impl::{spawn, spawn_local, JoinHandle};

@@ -1,10 +1,9 @@
 use anyhow::{anyhow, Result};
 use crb_core::mpsc;
-use crb_core::time::{sleep_until, Sleep};
+use crb_core::time::{sleep_until, Duration, Instant, Sleep};
 use futures::{Future, Stream};
 use std::pin::Pin;
 use std::task::{Context, Poll};
-use std::time::{Duration, Instant};
 
 #[derive(Debug)]
 pub struct Timeout {

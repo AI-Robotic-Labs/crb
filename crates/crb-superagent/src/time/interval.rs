@@ -1,11 +1,10 @@
 use anyhow::{anyhow, Result};
 use crb_core::mpsc;
-use crb_core::time::{sleep_until, Sleep};
+use crb_core::time::{sleep_until, Duration, Instant, Sleep};
 use futures::Future;
 use futures::Stream;
 use std::pin::Pin;
 use std::task::{Context, Poll};
-use std::time::{Duration, Instant};
 
 pub struct Interval {
     command_tx: mpsc::UnboundedSender<IntervalCommand>,
