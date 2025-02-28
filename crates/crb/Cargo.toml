@@ -9,7 +9,7 @@ readme = "README.md"
 
 [dependencies]
 crb-agent.workspace = true
-crb-core = { workspace = true, default-features = false }
+crb-core.workspace = true
 crb-runtime.workspace = true
 crb-send.workspace = true
 crb-superagent.workspace = true

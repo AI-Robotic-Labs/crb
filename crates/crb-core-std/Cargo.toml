@@ -6,4 +6,4 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-tokio = { version = "1.43.0", features = ["time"] }
+tokio = { version = "1.43.0", features = ["signal", "time"] }

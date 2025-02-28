@@ -9,7 +9,4 @@ pub mod time {
     pub use tokio::time::{sleep_until, timeout, Duration, Sleep};
 }
 
-pub use tokio::{
-    spawn,
-    task::{spawn_local, JoinHandle},
-};
+pub use crate::crb_core_impl::{spawn, spawn_local, JoinHandle};
