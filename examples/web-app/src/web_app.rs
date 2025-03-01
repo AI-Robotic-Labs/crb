@@ -1,8 +1,8 @@
 use crate::worker::Worker;
-use crb::agent::{Standalone, Address, Equip};
-use yew::{html, Component, Context, Html};
+use crb::agent::{Address, Equip, Standalone};
 use crb::core::mpsc;
 use tokio_stream::wrappers::UnboundedReceiverStream;
+use yew::{html, Component, Context, Html};
 
 pub enum Message {
     Add,

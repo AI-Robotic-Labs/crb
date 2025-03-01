@@ -11,15 +11,10 @@ anyhow.workspace = true
 derive_more.workspace = true
 futures.workspace = true
 thiserror.workspace = true
-crb-core-web.path = "../crb-core-web"
 tokio = { workspace = true, features = ["sync"] }
-
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-crb-core-std.path = "../crb-core-std"
-
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-crb-core-web.path = "../crb-core-web"
+crb-core-std = { path = "../crb-core-std", optional = true }
+crb-core-web = { path = "../crb-core-web", optional = true }
 
 [features]
-std = []
-web = []
+std = ["crb-core-std"]
+web = ["crb-core-web"]

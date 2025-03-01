@@ -23,5 +23,6 @@ futures.workspace = true
 tokio.workspace = true
 
 [features]
+default = ["std"]
 std = ["crb-core/std"]
 web = ["crb-core/web"]

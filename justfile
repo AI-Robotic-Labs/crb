@@ -1,6 +1,9 @@
 info:
     just -l
 
+test:
+    cargo test --features std
+
 version := `toml get Cargo.toml workspace.package.version --raw`
 tag := "v" + version
 

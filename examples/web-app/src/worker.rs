@@ -1,9 +1,9 @@
+use crate::web_app::Message;
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, Next, Standalone, DoAsync, Context, OnEvent};
-use crb::superagent::{StreamSession, Interval, Tick};
+use crb::agent::{Agent, Context, DoAsync, Next, OnEvent, Standalone};
 use crb::core::mpsc;
-use crate::web_app::Message;
+use crb::superagent::{Interval, StreamSession, Tick};
 
 pub struct Worker {
     interval: Interval,
@@ -19,8 +19,7 @@ impl Worker {
     }
 }
 
-impl Standalone for Worker {
-}
+impl Standalone for Worker {}
 
 impl Agent for Worker {
     type Context = StreamSession<Self>;
