@@ -7,10 +7,10 @@ compile_error!("Environment feature must be activated: std or web");
 #[cfg(all(feature = "std", feature = "web"))]
 compile_error!("Only one environment type must be selected: std or web");
 
-#[cfg(feature = "std")]
+#[cfg(all(feature = "std", not(feature = "web")))]
 pub use crb_core_std::*;
 
-#[cfg(feature = "web")]
+#[cfg(all(feature = "web", not(feature = "std")))]
 pub use crb_core_web::*;
 
 pub use futures;

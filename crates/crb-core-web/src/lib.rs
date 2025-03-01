@@ -8,3 +8,5 @@ pub mod time {
     pub use wasmtimer::std::Instant;
     pub use wasmtimer::tokio::*;
 }
+
+pub use uuid;

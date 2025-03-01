@@ -8,6 +8,10 @@
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
 
+# CRB v0.0.31 - 2025-03-01
+
+Add `uuid` to the core crate.
+
 # CRB v0.0.30 - 2025-03-01
 
 Web (WASM) environment support.

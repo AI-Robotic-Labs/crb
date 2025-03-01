@@ -6,3 +6,5 @@ pub use task::*;
 pub mod time {
     pub use tokio::time::*;
 }
+
+pub use uuid;
