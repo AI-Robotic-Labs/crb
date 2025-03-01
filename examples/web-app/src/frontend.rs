@@ -1,7 +1,6 @@
 use crate::web_app::WebApp;
 use anyhow::Result;
-use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, DoAsync, Next, Standalone};
+use crb::agent::{Agent, AgentSession, DoSync, Next, Standalone};
 
 pub struct Frontend;
 
@@ -17,15 +16,16 @@ impl Agent for Frontend {
     type Context = AgentSession<Self>;
 
     fn begin(&mut self) -> Next<Self> {
-        Next::do_async(Bootstrap)
+        // Important to check `DoSync` works
+        Next::do_sync(Bootstrap)
     }
 }
 
 struct Bootstrap;
 
-#[async_trait]
-impl DoAsync<Bootstrap> for Frontend {
-    async fn once(&mut self, _: &mut Bootstrap) -> Result<Next<Self>> {
+impl DoSync<Bootstrap> for Frontend {
+    fn once(&mut self, _: &mut Bootstrap) -> Result<Next<Self>> {
+        log::info!("DoSync works!");
         yew::Renderer::<WebApp>::new().render();
         Ok(Next::events())
     }

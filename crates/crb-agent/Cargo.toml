@@ -15,7 +15,3 @@ crb-runtime.workspace = true
 crb-send.workspace = true
 futures.workspace = true
 log.workspace = true
-tokio = { workspace = true, optional = true }
-
-[features]
-sync = ["tokio"]

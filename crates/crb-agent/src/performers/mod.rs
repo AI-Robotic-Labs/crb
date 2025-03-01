@@ -2,8 +2,6 @@ pub mod async_performer;
 pub mod consume_performer;
 pub mod events_performer;
 pub mod interrupt_performer;
-
-#[cfg(feature = "sync")]
 pub mod sync_performer;
 
 use crate::address::Envelope;

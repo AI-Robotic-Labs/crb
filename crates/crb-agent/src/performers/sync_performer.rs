@@ -6,10 +6,10 @@ use crate::performers::{
 };
 use anyhow::{Error, Result};
 use async_trait::async_trait;
+use crb_core::spawn_blocking;
 use crb_core::time::Instant;
 use crb_runtime::Stopper;
 use std::marker::PhantomData;
-use tokio::task::spawn_blocking;
 
 impl<T> Next<T>
 where

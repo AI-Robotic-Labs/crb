@@ -36,6 +36,7 @@ struct Initialize;
 #[async_trait]
 impl DoAsync<Initialize> for Worker {
     async fn handle(&mut self, _: Initialize, ctx: &mut Context<Self>) -> Result<Next<Self>> {
+        log::info!("DoAsync works!");
         ctx.consume(self.interval.events()?);
         Ok(Next::events())
     }

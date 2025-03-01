@@ -1,57 +1,101 @@
 //! Task module for spawning async tasks
 //! in WASM environment.
 
-use futures::future::abortable;
-use futures::stream::AbortHandle;
-use futures::FutureExt;
-use std::marker::PhantomData;
-use std::sync::Arc;
+use futures::channel::oneshot;
+use futures::future::{AbortHandle, Abortable, Aborted};
+use std::future::Future;
+use std::pin::Pin;
+use std::task::{Context, Poll};
+use thiserror::Error;
 
-/// Re-export of the `spawn_local` function.
-pub use wasm_bindgen_futures::spawn_local;
-
-/// A function to spawn asynchronous task.
-///
-/// It's necessary, because actors rely on `async_trait,
-/// and has to support spawning tasks with `Send` requirement.
-pub fn spawn<F>(future: F) -> JoinHandle<()>
-where
-    F: futures::Future<Output = ()> + Send + 'static,
-{
-    let (fut, handle) = abortable(future);
-    let alive = Arc::new(());
-    let alive_hook = Arc::downgrade(&alive);
-    let fut = fut.map(move |_| {
-        drop(alive_hook);
-    });
-    spawn_local(fut);
-    JoinHandle {
-        _res: PhantomData,
-        handle,
-        alive,
-    }
+/// Error type returned when awaiting a spawned task.
+#[derive(Error, Debug)]
+pub enum JoinError {
+    /// The task failed to send a result (e.g., the channel was dropped).
+    #[error("The task is cancelled")]
+    Canceled,
+    /// The task was aborted.
+    #[error("The task is aborted")]
+    Aborted,
 }
 
-/// An alternative to `tokio::task::JoinHandle`.
-///
-/// Is used to equip `spawn_local` with a way to abort the task,
-/// that is compatible with the `JoinHandle` from `tokio::task`.
-#[derive(Debug)]
+/// JoinHandle wraps a oneshot::Receiver for obtaining the task’s result,
+/// along with an AbortHandle to allow the task to be aborted.
 pub struct JoinHandle<T> {
-    _res: PhantomData<T>,
-    handle: AbortHandle,
-    /// A workaround to check if the future has finished.
-    alive: Arc<()>,
+    receiver: oneshot::Receiver<Result<T, Aborted>>,
+    abort_handle: AbortHandle,
+}
+
+impl<T> Future for JoinHandle<T> {
+    type Output = Result<T, JoinError>;
+
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        match Pin::new(&mut self.receiver).poll(cx) {
+            // The task completed and sent a result.
+            Poll::Ready(Ok(result)) => Poll::Ready(match result {
+                Ok(val) => Ok(val),
+                Err(_) => Err(JoinError::Aborted),
+            }),
+            // The oneshot channel was closed before a value could be sent.
+            Poll::Ready(Err(_)) => Poll::Ready(Err(JoinError::Canceled)),
+            Poll::Pending => Poll::Pending,
+        }
+    }
 }
 
 impl<T> JoinHandle<T> {
-    /// Abort the task associated with the handle.
+    /// Aborts the spawned task.
     pub fn abort(&self) {
-        self.handle.abort();
+        self.abort_handle.abort();
     }
+}
 
-    /// Checks if the task associated with this `JoinHandle` has finished.
-    pub fn is_finished(&self) -> bool {
-        Arc::weak_count(&self.alive) == 0
+/// Spawns a future as an abortable task using spawn_local.
+/// This function is equivalent to tokio's spawn_local.
+pub fn spawn_local<F>(future: F) -> JoinHandle<F::Output>
+where
+    F: Future + 'static,
+    F::Output: 'static,
+{
+    // Create a oneshot channel for sending the result.
+    let (sender, receiver) = oneshot::channel();
+    // Create an AbortHandle and AbortRegistration pair.
+    let (abort_handle, abort_registration) = AbortHandle::new_pair();
+
+    // Wrap the future in Abortable so it can be aborted.
+    let abortable_future = Abortable::new(future, abort_registration);
+
+    // The wrapped future awaits completion or abortion, then sends its result.
+    let wrapped_future = async move {
+        let res = abortable_future.await;
+        // Ignore errors if the receiver has been dropped.
+        let _ = sender.send(res);
+    };
+
+    wasm_bindgen_futures::spawn_local(wrapped_future);
+
+    JoinHandle {
+        receiver,
+        abort_handle,
     }
+}
+
+/// Spawns a future as an abortable task.
+/// In WASM, spawn and spawn_local are equivalent.
+pub fn spawn<F>(future: F) -> JoinHandle<F::Output>
+where
+    F: Future + 'static,
+    F::Output: 'static,
+{
+    spawn_local(future)
+}
+
+/// Spawns a blocking task by wrapping the blocking function in an async block.
+/// In WASM this is equivalent to spawn_local since true blocking cannot be offloaded to another thread.
+pub fn spawn_blocking<F, R>(blocking_func: F) -> JoinHandle<R>
+where
+    F: FnOnce() -> R + 'static,
+    R: 'static,
+{
+    spawn_local(async move { blocking_func() })
 }
