@@ -8,7 +8,11 @@
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
 
-# CRB v0.0.29 - upcoming...
+# CRB v0.0.30 - 2025-03-01
+
+Web (WASM) environment support.
+
+# CRB v0.0.29 - 2025-02-26
 
 ## Added
 
