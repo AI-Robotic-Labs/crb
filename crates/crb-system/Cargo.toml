@@ -12,3 +12,14 @@ async-trait.workspace = true
 crb-agent.workspace = true
 crb-runtime.workspace = true
 tokio = { workspace = true, features = ["macros", "signal"] }
+
+[features]
+default = ["std"]
+std = [
+    "crb-agent/std",
+    "crb-runtime/std",
+]
+web = [
+    "crb-agent/web",
+    "crb-runtime/web",
+]

@@ -16,5 +16,6 @@ crb-core-std = { path = "../crb-core-std", optional = true }
 crb-core-web = { path = "../crb-core-web", optional = true }
 
 [features]
+default = ["std"]
 std = ["crb-core-std"]
 web = ["crb-core-web"]

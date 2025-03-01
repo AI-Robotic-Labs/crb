@@ -4,6 +4,9 @@
 #[cfg(not(any(feature = "std", feature = "web")))]
 compile_error!("Environment feature must be activated: std or web");
 
+#[cfg(all(feature = "std", feature = "web"))]
+compile_error!("Only one environment type must be selected: std or web");
+
 #[cfg(feature = "std")]
 pub use crb_core_std::*;
 

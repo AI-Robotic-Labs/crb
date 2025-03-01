@@ -16,10 +16,10 @@ repository = "https://github.com/runtime-blocks/crb"
 [workspace.dependencies]
 anyhow = "1.0.96"
 async-trait = "0.1.86"
-crb-agent = { version = "0.0.29", path = "crates/crb-agent" }
-crb-superagent = { version = "0.0.29", path = "crates/crb-superagent" }
-crb-core = { version = "0.0.29", path = "crates/crb-core" }
-crb-runtime = { version = "0.0.29", path = "crates/crb-runtime" }
+crb-agent = { version = "0.0.29", path = "crates/crb-agent", default-features = false }
+crb-superagent = { version = "0.0.29", path = "crates/crb-superagent", default-features = false }
+crb-core = { version = "0.0.29", path = "crates/crb-core", default-features = false }
+crb-runtime = { version = "0.0.29", path = "crates/crb-runtime", default-features = false }
 crb-send = { version = "0.0.29", path = "crates/crb-send" }
 crb-system = { version = "0.0.29", path = "crates/crb-system" }
 derive_more = { version = "2.0.1", features = ["full"] }

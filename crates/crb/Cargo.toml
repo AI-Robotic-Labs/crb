@@ -24,5 +24,11 @@ tokio.workspace = true
 
 [features]
 default = ["std"]
-std = ["crb-core/std"]
-web = ["crb-core/web"]
+std = [
+    "crb-core/std",
+    "crb-runtime/std",
+]
+web = [
+    "crb-core/web",
+    "crb-runtime/web",
+]

@@ -15,3 +15,14 @@ crb-runtime.workspace = true
 crb-send.workspace = true
 futures.workspace = true
 log.workspace = true
+
+[features]
+default = ["std"]
+std = [
+    "crb-core/std",
+    "crb-runtime/std",
+]
+web = [
+    "crb-core/web",
+    "crb-runtime/web",
+]

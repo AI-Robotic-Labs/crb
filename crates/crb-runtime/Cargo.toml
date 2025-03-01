@@ -13,3 +13,8 @@ crb-core.workspace = true
 derive_more.workspace = true
 futures.workspace = true
 thiserror.workspace = true
+
+[features]
+default = ["std"]
+std = ["crb-core/std"]
+web = ["crb-core/web"]

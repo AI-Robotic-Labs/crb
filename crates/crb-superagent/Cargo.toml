@@ -20,3 +20,16 @@ log.workspace = true
 thiserror.workspace = true
 tokio-stream.workspace = true
 typed-slab.workspace = true
+
+[features]
+default = ["std"]
+std = [
+    "crb-agent/std",
+    "crb-core/std",
+    "crb-runtime/std",
+]
+web = [
+    "crb-agent/web",
+    "crb-core/web",
+    "crb-runtime/web",
+]
