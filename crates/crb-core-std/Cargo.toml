@@ -6,4 +6,5 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-tokio = { version = "1.43.0", features = ["signal", "time"] }
+tokio = { version = "1.43.0", features = ["sync", "rt", "time"] }
+# uuid = { version = "1.15.0", default-features = false, features = ["v4", "v5", "serde"] }

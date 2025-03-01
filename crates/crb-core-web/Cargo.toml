@@ -6,4 +6,15 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-web-time = "1.1.0"
+#web-time = "1.1.0"
+tokio = { version = "1.43.0", features = ["sync"] }
+wasm-bindgen-futures = "0.4.50"
+wasmtimer = "0.4.1"
+futures.workspace = true
+thiserror.workspace = true
+
+# gloo-timers = { version = "0.3.0", features = ["futures"] }
+# ordered-float = { version = "4.6.0", default-features = false }
+# uuid = { version = "1.15.0", default-features = false, features = ["v4", "v5", "serde", "js"] }
+# js-sys = "0.3.77"
+# web-sys = { version = "0.3.77", features = ["Performance", "Window"] }
