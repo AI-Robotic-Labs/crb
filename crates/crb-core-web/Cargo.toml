@@ -1,5 +1,6 @@
 [package]
 name = "crb-core-web"
+description = "CRB | Composable Runtime Blocks | WEB"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

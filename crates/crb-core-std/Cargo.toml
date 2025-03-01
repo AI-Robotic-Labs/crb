@@ -1,5 +1,6 @@
 [package]
 name = "crb-core-std"
+description = "CRB | Composable Runtime Blocks | STD"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
