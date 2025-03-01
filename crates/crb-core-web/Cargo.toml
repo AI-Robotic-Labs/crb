@@ -1,10 +1,9 @@
 [package]
-name = "crb-core-wasm"
+name = "crb-core-web"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
 
 [dependencies]
-tokio_with_wasm = { version = "0.8.2", features = ["rt", "macros"] }
 web-time = "1.1.0"

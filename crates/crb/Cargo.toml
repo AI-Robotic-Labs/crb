@@ -24,4 +24,4 @@ tokio.workspace = true
 
 [features]
 std = ["crb-core/std"]
-wasm = ["crb-core/wasm"]
+web = ["crb-core/web"]
