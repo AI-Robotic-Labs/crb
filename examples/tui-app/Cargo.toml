@@ -5,8 +5,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.96"
-async-trait = "0.1.86"
+anyhow = "1.0.97"
+async-trait = "0.1.87"
 crb.path = "../../crates/crb"
 crossterm = "0.28.1"
 ratatui = "0.29.0"

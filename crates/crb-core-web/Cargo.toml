@@ -13,7 +13,7 @@ wasm-bindgen-futures = "0.4.50"
 wasmtimer = "0.4.1"
 futures.workspace = true
 thiserror.workspace = true
-uuid = { version = "1.15.0", default-features = false, features = ["v4", "v5", "serde", "js"] }
+uuid = { version = "1.15.1", default-features = false, features = ["v4", "v5", "serde", "js"] }
 
 # gloo-timers = { version = "0.3.0", features = ["futures"] }
 # ordered-float = { version = "4.6.0", default-features = false }

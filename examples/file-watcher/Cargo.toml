@@ -5,8 +5,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.96"
-async-trait = "0.1.86"
+anyhow = "1.0.97"
+async-trait = "0.1.87"
 crb.path = "../../crates/crb"
 derive_more = "1.0.0"
 notify = "8.0.0"
