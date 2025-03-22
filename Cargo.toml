@@ -15,7 +15,7 @@ repository = "https://github.com/runtime-blocks/crb"
 
 [workspace.dependencies]
 anyhow = "1.0.97"
-async-trait = "0.1.87"
+async-trait = "0.1.88"
 crb-agent = { version = "0.0.31", path = "crates/crb-agent", default-features = false }
 crb-superagent = { version = "0.0.31", path = "crates/crb-superagent", default-features = false }
 crb-core = { version = "0.0.31", path = "crates/crb-core", default-features = false }
@@ -27,6 +27,6 @@ futures = "0.3.31"
 futures-util = "0.3.31"
 log = "0.4.26"
 thiserror = "2.0.12"
-tokio = { version = "1.43.0" }
+tokio = { version = "1.44.1" }
 tokio-stream = "0.1.17"
 typed-slab = "0.2.1"

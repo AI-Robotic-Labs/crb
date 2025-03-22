@@ -6,8 +6,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.97"
-async-trait = "0.1.87"
+async-trait = "0.1.88"
 crb.path = "../../crates/crb"
 derive_more = "1.0.0"
 notify = "8.0.0"
-tokio = { version = "1.43.0", features = ["full"] }
+tokio = { version = "1.44.1", features = ["full"] }
