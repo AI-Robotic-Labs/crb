@@ -1,5 +1,7 @@
 ## ToDo
 
+- Remove `StopAddress` completely (recommend to use `Arc` + `Inner` + `Drop` instead)
+
 - Epochs example
 - Child expiration example
 - Signals listening
