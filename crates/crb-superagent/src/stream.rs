@@ -62,8 +62,9 @@ impl<A: Agent> AgentContext<A> for StreamSession<A> {
                     self.streams.clear();
                     None
                 }
-                Either::Left((event, _)) => event,
-                Either::Right((event, _)) => event,
+                Either::Right((None, next_fut)) => next_fut.await,
+                Either::Left((Some(event), _)) => Some(event),
+                Either::Right((Some(event), _)) => Some(event),
             }
         }
     }

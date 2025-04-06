@@ -10,6 +10,10 @@
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
 
+# CRB v0.0.33 - 2025-04-06
+
+Fix the issue with streams consumption: an agent is not terminated when a stream is ended.
+
 # CRB v0.0.32 - 2025-04-06
 
 Add `from_mpsc` method to the `Drainer` stream wrapper.
