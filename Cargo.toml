@@ -25,8 +25,8 @@ crb-system = { version = "0.0.31", path = "crates/crb-system" }
 derive_more = { version = "2.0.1", features = ["full"] }
 futures = "0.3.31"
 futures-util = "0.3.31"
-log = "0.4.26"
+log = "0.4.27"
 thiserror = "2.0.12"
-tokio = { version = "1.44.1" }
+tokio = { version = "1.44.2" }
 tokio-stream = "0.1.17"
 typed-slab = "0.2.1"

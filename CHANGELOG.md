@@ -10,6 +10,10 @@
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
 
+# CRB v0.0.32 - 2025-04-06
+
+Add `from_mpsc` method to the `Drainer` stream wrapper.
+
 # CRB v0.0.31 - 2025-03-01
 
 Add `uuid` to the core crate.
