@@ -5,8 +5,10 @@ use crb_example_axum_handler::{AgentHandler, AxumAgent};
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let addr = "0.0.0.0:8080";
     let app = Router::new().route("/", get(AgentHandler::<CrbWorld, (), ()>::new()));
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await?;
+    let listener = tokio::net::TcpListener::bind(addr).await?;
+    println!("Listening: http://{addr}");
     axum::serve(listener, app).await?;
     Ok(())
 }

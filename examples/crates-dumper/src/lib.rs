@@ -7,6 +7,7 @@ use db_dump::{crates::Row, Loader};
 use futures::StreamExt;
 use serde::Serialize;
 use std::path::PathBuf;
+use std::io::{self, Write};
 use tokio::fs::{self, File};
 use tokio::io::AsyncWriteExt;
 
@@ -38,13 +39,28 @@ struct DownloadDump;
 #[async_trait]
 impl DoAsync<DownloadDump> for CratesLoader {
     async fn once(&mut self, _: &mut DownloadDump) -> Result<Next<Self>> {
-        if !self.path.exists() {
-            println!("Downloading a crates index...");
-            let mut stream = reqwest::get(URL).await?.error_for_status()?.bytes_stream();
-            let mut dump_file = File::create(&self.path).await?;
-            while let Some(chunk) = stream.next().await {
-                dump_file.write_all(&chunk?).await?;
+        if self.path.exists() {
+            println!("Cleaning up...");
+            fs::remove_file(&self.path).await?;
+        }
+        println!("Downloading a crates index...");
+        let response = reqwest::get(URL).await?.error_for_status()?;
+        let total = response.content_length().unwrap_or(u64::MAX);
+        let mut loaded = 0;
+        let mut progress = 0;
+        let mut stream = response.bytes_stream();
+        let mut dump_file = File::create(&self.path).await?;
+        while let Some(chunk) = stream.next().await {
+            let chunk = chunk?;
+            loaded += chunk.len() as u64;
+            let new_progress = loaded * 100 / total;
+            if new_progress != progress {
+                print!("\r\x1B[2K");
+                print!("Progress: {progress}%");
+                io::stdout().flush()?;
+                progress = new_progress;
             }
+            dump_file.write_all(&chunk).await?;
         }
         Ok(Next::do_sync(ExtractLatest))
     }
