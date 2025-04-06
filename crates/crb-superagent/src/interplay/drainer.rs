@@ -3,6 +3,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use crb_agent::{Address, Agent, AgentSession, DoAsync, Next, OnEvent, RunAgent};
 use crb_core::{
+    mpsc,
     time::{timeout, Duration},
     Msg, Tag,
 };
@@ -14,6 +15,7 @@ use futures::{
     Stream, StreamExt,
 };
 use std::pin::{pin, Pin};
+use tokio_stream::wrappers::UnboundedReceiverStream;
 
 pub struct Drainer<ITEM> {
     stream: BoxStream<'static, ITEM>,
@@ -30,6 +32,11 @@ where
         Self {
             stream: stream.boxed(),
         }
+    }
+
+    pub fn from_mpsc(rx: mpsc::UnboundedReceiver<ITEM>) -> Self {
+        let stream = UnboundedReceiverStream::new(rx);
+        Drainer::new(stream)
     }
 }
 
