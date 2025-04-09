@@ -1,6 +1,6 @@
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use crb_core::mpsc;
-use crb_core::time::{sleep_until, Duration, Instant, Sleep};
+use crb_core::time::{Duration, Instant, Sleep, sleep_until};
 use futures::Future;
 use futures::Stream;
 use std::pin::Pin;

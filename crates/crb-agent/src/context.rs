@@ -2,7 +2,7 @@ use crate::address::{Address, AddressJoint, Envelope};
 use crate::agent::Agent;
 use crate::extension::ExtensionFor;
 use crate::performers::Next;
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use async_trait::async_trait;
 use crb_runtime::{Controller, ManagedContext, ReachableContext};
 use derive_more::{Deref, DerefMut};

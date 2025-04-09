@@ -3,18 +3,17 @@ use anyhow::Result;
 use async_trait::async_trait;
 use crb_agent::{Address, Agent, AgentSession, DoAsync, Next, OnEvent, RunAgent};
 use crb_core::{
-    mpsc,
-    time::{timeout, Duration},
-    Msg, Tag,
+    Msg, Tag, mpsc,
+    time::{Duration, timeout},
 };
 use crb_runtime::InterruptionLevel;
 use crb_send::{Recipient, Sender};
 use futures::{
+    Stream, StreamExt,
     stream::BoxStream,
     task::{Context, Poll},
-    Stream, StreamExt,
 };
-use std::pin::{pin, Pin};
+use std::pin::{Pin, pin};
 use tokio_stream::wrappers::UnboundedReceiverStream;
 
 pub struct Drainer<ITEM> {

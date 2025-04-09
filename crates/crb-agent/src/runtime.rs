@@ -1,13 +1,13 @@
 use crate::agent::Agent;
 use crate::context::{AgentContext, Context};
 use crate::performers::{ConsumptionReason, StopReason, Transition, TransitionCommand};
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use async_trait::async_trait;
 use crb_runtime::{
     InteractiveRuntime, InteractiveTask, InterruptionLevel, Interruptor, ManagedContext,
     ReachableContext, Runtime, Task,
 };
-use futures::{stream::Abortable, FutureExt};
+use futures::{FutureExt, stream::Abortable};
 use std::future::{Future, IntoFuture};
 use std::pin::Pin;
 

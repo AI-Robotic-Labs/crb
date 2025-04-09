@@ -1,4 +1,4 @@
-use super::{runtime::RunMission, Goal, Mission};
+use super::{Goal, Mission, runtime::RunMission};
 use anyhow::Result;
 use async_trait::async_trait;
 use crb_agent::{Agent, AgentSession, Context, DoSync, Next};

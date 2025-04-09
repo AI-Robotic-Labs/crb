@@ -1,5 +1,5 @@
 use crate::supervisor::ForwardTo;
-use anyhow::{anyhow, Error, Result};
+use anyhow::{Error, Result, anyhow};
 use async_trait::async_trait;
 use crb_agent::{Address, Agent, AgentSession, Context, DoAsync, MessageFor, Next, RunAgent};
 use crb_core::{Msg, Slot, Tag};
@@ -7,8 +7,8 @@ use crb_runtime::InterruptionLevel;
 use crb_send::{Recipient, Sender};
 use futures::channel::oneshot::{self, Canceled};
 use futures::{
-    task::{Context as FutContext, Poll},
     Future,
+    task::{Context as FutContext, Poll},
 };
 use std::future::IntoFuture;
 use std::pin::Pin;

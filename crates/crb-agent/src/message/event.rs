@@ -1,7 +1,7 @@
 use crate::address::{Address, Envelope, MessageFor};
 use crate::agent::Agent;
 use crate::context::Context;
-use anyhow::{anyhow, Error, Result};
+use anyhow::{Error, Result, anyhow};
 use async_trait::async_trait;
 use crb_core::Tag;
 use crb_send::Recipient;

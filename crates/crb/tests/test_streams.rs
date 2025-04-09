@@ -2,7 +2,7 @@ use anyhow::Result;
 use async_trait::async_trait;
 use crb::agent::{Agent, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone};
 use crb::superagent::StreamSession;
-use futures::stream::{once, StreamExt};
+use futures::stream::{StreamExt, once};
 
 struct TestStreams {
     counter: usize,

@@ -2,7 +2,7 @@ use async_trait::async_trait;
 use crb_agent::{Address, Agent, AgentContext, AgentSession, Envelope, Event, OnEvent, TheEvent};
 use crb_runtime::{ManagedContext, ReachableContext};
 use derive_more::{Deref, DerefMut};
-use futures::{future::select, stream::BoxStream, Stream, StreamExt};
+use futures::{Stream, StreamExt, future::select, stream::BoxStream};
 use futures_util::{future::Either, stream::SelectAll};
 
 #[derive(Deref, DerefMut)]

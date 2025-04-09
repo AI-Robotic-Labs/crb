@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use anyhow::{Result, anyhow};
 use crb_agent::{Agent, Envelope, Event, OnEvent, TheEvent};
 use crb_core::{mpsc, sync::Mutex};
 use derive_more::{Deref, DerefMut};

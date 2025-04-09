@@ -6,8 +6,8 @@ use csv::Writer;
 use db_dump::{crates::Row, Loader};
 use futures::StreamExt;
 use serde::Serialize;
-use std::path::PathBuf;
 use std::io::{self, Write};
+use std::path::PathBuf;
 use tokio::fs::{self, File};
 use tokio::io::AsyncWriteExt;
 

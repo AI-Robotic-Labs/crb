@@ -1,7 +1,7 @@
 //! A module with notifiers.
 
 use crate::sender::{Recipient, Sender};
-use anyhow::{anyhow as err, Result};
+use anyhow::{Result, anyhow as err};
 use std::sync::{Arc, Mutex};
 
 /// An abstract notifier.

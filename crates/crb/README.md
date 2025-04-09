@@ -1,3 +1,5 @@
+_The CRB framework is part of the software toolset provided with a [knowledge.dev](https://knowledge.dev/) subscription._
+
 <img src="https://runtime-blocks.github.io/website/repo/crb/assets/crb-header.png" width="400px" />
 
 # Composable Runtime Blocks
@@ -34,7 +36,6 @@ The key feature is its ability to combine the roles, enabling the implementation
 
 The following projects have been implemented using the framework:
 
-- [Nine](https://github.com/NethermindEth/nine) - AI agents that work everywhere.
 - [Crateful](https://lab.knowledge.dev/) - AI-curated weekly newsletter about Rust crates.
 - [Knowledge.Dev](https://knowledge.dev/) - An interactive book for learning practical, idiomatic Rust (product is entirely written in Rust).
 
@@ -580,6 +581,6 @@ To support the project, consider subscribing to [Crateful](https://crateful.subs
 
 # License
 
-This project is licensed under the [MIT license].
+The project is licensed under the MIT License up to and including version 0.33. Starting from version 0.34, the Business Source License 1.1 (BUSL-1.1) applies.
 
-[MIT license]: https://github.com/runtime-blocks/crb/blob/master/LICENSE
+[BUSL-1.1 license]: https://github.com/runtime-blocks/crb/blob/master/LICENSE

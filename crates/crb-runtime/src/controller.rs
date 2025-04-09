@@ -2,8 +2,8 @@ use crate::interruptor::{InterruptionLevel, Interruptor};
 use derive_more::Deref;
 use futures::stream::{AbortHandle, AbortRegistration};
 use std::sync::{
-    atomic::{AtomicBool, Ordering},
     Arc,
+    atomic::{AtomicBool, Ordering},
 };
 use thiserror::Error;
 
