@@ -1,10 +1,8 @@
 use crate::address::Address;
 use crate::agent::Agent;
 use crate::context::Context;
-use crate::message::event::{Event, OnEvent, TheEvent};
-use anyhow::Result;
-use crb_send::{Recipient, Sender};
-use derive_more::{Deref, DerefMut};
+use crate::message::event::OnEvent;
+use crb_send::Recipient;
 use std::sync::Arc;
 
 pub type UniAddress<T> = Arc<T>;
@@ -135,47 +133,4 @@ where
     {
         E::from(self.0)
     }
-}
-
-#[derive(Deref, DerefMut)]
-pub struct StopAddress<A: Agent> {
-    address: Address<A>,
-}
-
-impl<A: Agent> Address<A> {
-    pub fn to_stop_address(self) -> StopAddress<A> {
-        StopAddress { address: self }
-    }
-}
-
-impl<A: Agent> Drop for StopAddress<A> {
-    fn drop(&mut self) {
-        self.address.interrupt().ok();
-    }
-}
-
-impl<A, E> Sender<E> for StopAddress<A>
-where
-    A: OnEvent<E>,
-    E: TheEvent,
-{
-    fn send(&self, event: E) -> Result<()> {
-        self.address.send(Event::new(event))
-    }
-}
-
-impl<A: Agent> StopAddress<A> {
-    pub fn to_stop_recipient<E>(self) -> StopRecipient<E>
-    where
-        A: OnEvent<E>,
-        E: TheEvent,
-    {
-        let recipient = Recipient::new(self);
-        StopRecipient { recipient }
-    }
-}
-
-#[derive(Deref, DerefMut)]
-pub struct StopRecipient<E> {
-    recipient: Recipient<E>,
 }

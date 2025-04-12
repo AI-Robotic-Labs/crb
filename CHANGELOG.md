@@ -1,7 +1,5 @@
 ## ToDo
 
-- Remove `StopAddress` completely (recommend to use `Arc` + `Inner` + `Drop` instead)
-
 - Epochs example
 - Child expiration example
 - Signals listening
@@ -9,6 +7,14 @@
 - Add `repeat_async` and `repeat_sync` Fut/Fn performers
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
+
+# CRB v0.0.35 - 2025-04-12
+
+- **Removing `StopAddress`** - The recommended approach to interrupt actor on address drop is an inner with `Drop` wrapped in `Arc`.
+
+# CRB v0.0.34 - 2025-04-09
+
+A new release, licensed under BUSL-1.1.
 
 # CRB v0.0.33 - 2025-04-06
 
