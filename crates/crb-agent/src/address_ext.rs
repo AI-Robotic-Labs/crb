@@ -37,6 +37,18 @@ impl<A: Agent, T: ToAddress<A>> ToAddress<A> for &mut T {
     }
 }
 
+impl<A: Agent, T: ToAddress<A>, X> ToAddress<A> for (T, X) {
+    fn to_address(&self) -> Address<A> {
+        self.0.to_address()
+    }
+}
+
+impl<A: Agent, X> From<(Address<A>, X)> for Address<A> {
+    fn from((address, _): (Address<A>, X)) -> Address<A> {
+        address
+    }
+}
+
 pub trait ToRecipient<M> {
     fn to_recipient(&self) -> Recipient<M>;
 }
