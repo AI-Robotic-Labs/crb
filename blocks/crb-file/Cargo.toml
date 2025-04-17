@@ -1,0 +1,22 @@
+[package]
+name = "crb-file"
+description = "CRB | Composable Runtime Blocks | File"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+async-trait.workspace = true
+derive_more.workspace = true
+crb.workspace = true
+
+[features]
+default = ["std"]
+std = [
+    "crb/std",
+]
+web = [
+    "crb/web",
+]

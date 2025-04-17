@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "crates/*",
+    "blocks/*",
 ]
 exclude = [
     "examples"
@@ -16,6 +17,7 @@ repository = "https://github.com/runtime-blocks/crb"
 [workspace.dependencies]
 anyhow = "1.0.97"
 async-trait = "0.1.88"
+crb = { version = "0.0.35", path = "crates/crb" }
 crb-agent = { version = "0.0.35", path = "crates/crb-agent", default-features = false }
 crb-superagent = { version = "0.0.35", path = "crates/crb-superagent", default-features = false }
 crb-core = { version = "0.0.35", path = "crates/crb-core", default-features = false }
