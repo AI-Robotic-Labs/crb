@@ -1,6 +1,6 @@
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, Context};
+use crb::agent::{Address, Agent, AgentSession, Context};
 use crb::superagent::{OnRequest, Request};
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
@@ -18,6 +18,7 @@ pub struct ConfigAgent {}
 
 impl Agent for ConfigAgent {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 }
 
 pub struct ReadConfig<T = Value> {

@@ -1,7 +1,7 @@
 use super::{Goal, Mission, runtime::RunMission};
 use anyhow::Result;
 use async_trait::async_trait;
-use crb_agent::{Agent, AgentSession, Context, DoAsync, Next};
+use crb_agent::{Address, Agent, AgentSession, Context, DoAsync, Next};
 use futures::Future;
 
 impl<T: Goal> RunMission<AsyncFn<T>> {
@@ -25,6 +25,7 @@ pub struct AsyncFn<T> {
 
 impl<T: Goal> Agent for AsyncFn<T> {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, _ctx: &mut Context<Self>) -> Next<Self> {
         Next::do_async(AwaitFut)

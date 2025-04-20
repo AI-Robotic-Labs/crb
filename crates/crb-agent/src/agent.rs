@@ -1,3 +1,4 @@
+use crate::address::Address;
 use crate::context::{AgentContext, Context};
 use crate::performers::Next;
 use crate::runtime::RunAgent;
@@ -18,6 +19,7 @@ use std::any::type_name;
 #[async_trait]
 pub trait Agent: Sized + Send + 'static {
     type Context: AgentContext<Self>;
+    type Link: From<Address<Self>>;
 
     /// The `initialize` method is called first when the actor starts.
     /// It should return a `Next` state, which the actor will transition to.

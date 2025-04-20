@@ -118,6 +118,7 @@ where
     T: Tag,
 {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_async(())

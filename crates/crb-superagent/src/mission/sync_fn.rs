@@ -1,7 +1,7 @@
 use super::{Goal, Mission, runtime::RunMission};
 use anyhow::Result;
 use async_trait::async_trait;
-use crb_agent::{Agent, AgentSession, Context, DoSync, Next};
+use crb_agent::{Address, Agent, AgentSession, Context, DoSync, Next};
 
 impl<T: Goal> RunMission<SyncFn<T>> {
     pub fn new_sync<F: AnySyncFn<T>>(func: F) -> Self {
@@ -24,6 +24,7 @@ pub struct SyncFn<T> {
 
 impl<T: Goal> Agent for SyncFn<T> {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, _ctx: &mut Context<Self>) -> Next<Self> {
         Next::do_sync(CallFn)

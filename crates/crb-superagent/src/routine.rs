@@ -1,6 +1,6 @@
 use anyhow::{Result, anyhow};
 use async_trait::async_trait;
-use crb_agent::{Agent, AgentSession, DoAsync, DoSync, Next};
+use crb_agent::{Address, Agent, AgentSession, DoAsync, DoSync, Next};
 
 pub enum Routine {
     AsyncRoutine(Box<dyn AsyncRoutine>),
@@ -10,6 +10,7 @@ pub enum Routine {
 
 impl Agent for Routine {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         let mut detached = Self::Detached;
