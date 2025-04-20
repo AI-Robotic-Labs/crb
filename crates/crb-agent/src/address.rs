@@ -5,6 +5,7 @@ use async_trait::async_trait;
 use crb_core::{mpsc, watch};
 use crb_runtime::Stopper;
 use crb_send::{Recipient, Sender};
+use derive_more::{Deref, DerefMut};
 
 pub struct AddressJoint<A: Agent> {
     msg_rx: mpsc::UnboundedReceiver<Envelope<A>>,
@@ -114,4 +115,17 @@ pub type Envelope<A> = Box<dyn MessageFor<A>>;
 #[async_trait]
 pub trait MessageFor<A: Agent>: Send + 'static {
     async fn handle(self: Box<Self>, actor: &mut A, ctx: &mut Context<A>) -> Result<()>;
+}
+
+#[derive(Deref, DerefMut)]
+pub struct Link<A: Agent> {
+    inner: A::Link,
+}
+
+impl<A: Agent> From<Address<A>> for Link<A> {
+    fn from(address: Address<A>) -> Self {
+        Self {
+            inner: A::Link::from(address),
+        }
+    }
 }

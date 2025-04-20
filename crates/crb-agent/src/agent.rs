@@ -1,10 +1,10 @@
-use crate::address::Address;
+use crate::address::{Address, Link};
 use crate::context::{AgentContext, Context};
 use crate::performers::Next;
 use crate::runtime::RunAgent;
 use anyhow::{Error, Result};
 use async_trait::async_trait;
-use crb_runtime::{InteractiveTask, ManagedContext, ReachableContext};
+use crb_runtime::{InteractiveTask, ManagedContext};
 use std::any::type_name;
 
 /// `Agent` is a universal trait of a hybrid (transactional) actor.
@@ -103,11 +103,12 @@ pub trait Agent: Sized + Send + 'static {
 }
 
 pub trait Standalone: Agent {
-    fn spawn(self) -> <Self::Context as ReachableContext>::Address
+    fn spawn(self) -> Link<Self>
     where
         Self::Context: Default,
     {
-        RunAgent::new(self).spawn_connected()
+        let address = RunAgent::new(self).spawn_connected();
+        Link::from(address)
     }
 
     // TODO: spawn_with_context()
