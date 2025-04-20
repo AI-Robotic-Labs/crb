@@ -8,6 +8,11 @@
 - Use repeaters for the `Drainer`
 - Messages per second limit for the `Drainer`
 
+# CRB v0.0.36 - 2025-04-20
+
+- **Link** - Agents have an assigned `Link` type which instance will be produces from an `Address` to provide
+a convenient interface to interact with an `Actor`.
+
 # CRB v0.0.35 - 2025-04-12
 
 - **Removing `StopAddress`** - The recommended approach to interrupt actor on address drop is an inner with `Drop` wrapped in `Arc`.
