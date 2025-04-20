@@ -11,6 +11,7 @@ impl Standalone for TestAgent {}
 
 impl Agent for TestAgent {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 }
 
 pub struct TestEvent;

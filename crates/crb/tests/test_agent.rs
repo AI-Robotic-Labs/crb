@@ -1,20 +1,21 @@
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Address, Agent, AgentSession, Context, Equip, OnEvent, Standalone};
+use crb::agent::{Address, Agent, AgentSession, Context, OnEvent, Standalone};
 use derive_more::{Deref, DerefMut, From};
 
-struct TestAgent;
+struct PrinterAgent;
 
-impl Standalone for TestAgent {}
+impl Standalone for PrinterAgent {}
 
-impl Agent for TestAgent {
+impl Agent for PrinterAgent {
     type Context = AgentSession<Self>;
+    type Link = Printer;
 }
 
 struct Print(pub String);
 
 #[async_trait]
-impl OnEvent<Print> for TestAgent {
+impl OnEvent<Print> for PrinterAgent {
     async fn handle(&mut self, event: Print, _ctx: &mut Context<Self>) -> Result<()> {
         println!("{}", event.0);
         Ok(())
@@ -23,7 +24,7 @@ impl OnEvent<Print> for TestAgent {
 
 #[derive(Deref, DerefMut, From)]
 struct Printer {
-    address: Address<TestAgent>,
+    address: Address<PrinterAgent>,
 }
 
 impl Printer {
@@ -36,9 +37,9 @@ impl Printer {
 
 #[tokio::test]
 async fn test_agent() -> Result<()> {
-    let mut addr: Printer = TestAgent.spawn().equip();
-    addr.print("Hello, Agent!")?;
-    addr.interrupt()?;
-    addr.join().await?;
+    let mut printer = PrinterAgent.spawn();
+    printer.print("Hello, Agent!")?;
+    printer.interrupt()?;
+    printer.join().await?;
     Ok(())
 }

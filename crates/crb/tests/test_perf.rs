@@ -1,7 +1,7 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use crb::agent::{
-    Agent, AgentSession, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone,
+    Address, Agent, AgentSession, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone,
 };
 use std::time::{Duration, Instant};
 
@@ -41,6 +41,7 @@ impl Standalone for TestTime {}
 
 impl Agent for TestTime {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         self.reset();

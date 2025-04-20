@@ -1,6 +1,6 @@
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, Context, Next, OnEvent, Standalone};
+use crb::agent::{Address, Agent, AgentSession, Context, Next, OnEvent, Standalone};
 use crb::superagent::{Drainer, Supervisor, SupervisorSession};
 use futures::stream;
 
@@ -15,6 +15,7 @@ impl Supervisor for TestSupervisor {
 
 impl Agent for TestSupervisor {
     type Context = SupervisorSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, ctx: &mut Context<Self>) -> Next<Self> {
         ctx.spawn_agent(Child, ());
@@ -42,6 +43,7 @@ struct Child;
 
 impl Agent for Child {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::done()

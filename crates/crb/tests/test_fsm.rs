@@ -1,6 +1,6 @@
 use anyhow::{Error, Result};
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, DoAsync, Next, Standalone};
+use crb::agent::{Address, Agent, AgentSession, DoAsync, Next, Standalone};
 
 enum State {
     First,
@@ -26,6 +26,7 @@ impl Standalone for Task {}
 
 impl Agent for Task {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         self.state.next()

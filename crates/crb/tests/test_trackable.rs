@@ -1,12 +1,13 @@
 use anyhow::{Error, Result};
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, Context, Next, OnEvent, Standalone};
+use crb::agent::{Address, Agent, AgentSession, Context, Next, OnEvent, Standalone};
 use crb::superagent::{Supervisor, SupervisorSession};
 
 struct Printer;
 
 impl Agent for Printer {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 }
 
 struct Print(pub String);
@@ -26,6 +27,7 @@ impl Standalone for Main {}
 #[async_trait]
 impl Agent for Main {
     type Context = SupervisorSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, ctx: &mut Context<Self>) -> Next<Self> {
         ctx.event(SendPrint)

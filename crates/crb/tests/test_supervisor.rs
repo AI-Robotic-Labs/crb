@@ -1,5 +1,5 @@
 use anyhow::Result;
-use crb::agent::{Agent, AgentSession, Context, ManagedContext, Next, Standalone};
+use crb::agent::{Address, Agent, AgentSession, Context, ManagedContext, Next, Standalone};
 use crb::superagent::{Relation, Supervisor, SupervisorSession};
 
 #[derive(Default)]
@@ -26,6 +26,7 @@ impl Supervisor for TestSupervisor {
 
 impl Agent for TestSupervisor {
     type Context = SupervisorSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, ctx: &mut Context<Self>) -> Next<Self> {
         ctx.spawn_agent(Child, ());
@@ -37,6 +38,7 @@ struct Child;
 
 impl Agent for Child {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn initialize(&mut self, ctx: &mut Context<Self>) -> Next<Self> {
         println!("A child: has been spawned!");

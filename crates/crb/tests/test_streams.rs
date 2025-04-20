@@ -1,6 +1,6 @@
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone};
+use crb::agent::{Address, Agent, Context, DoAsync, ManagedContext, Next, OnEvent, Standalone};
 use crb::superagent::StreamSession;
 use futures::stream::{StreamExt, once};
 
@@ -18,6 +18,7 @@ impl Standalone for TestStreams {}
 
 impl Agent for TestStreams {
     type Context = StreamSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_async(Consume)
