@@ -7,7 +7,7 @@ pub use stacker::Stacker;
 use anyhow::Error;
 use async_trait::async_trait;
 use crb_agent::{
-    Address, Agent, AgentContext, AgentSession, Context, Envelope, MessageFor, RunAgent,
+    Address, Agent, AgentContext, AgentSession, Context, Envelope, Link, MessageFor, RunAgent,
 };
 use crb_core::Tag;
 use crb_runtime::{
@@ -222,17 +222,14 @@ where
     S: Supervisor,
     S::Context: SupervisorContext<S>,
 {
-    pub fn spawn_agent<A>(
-        &mut self,
-        agent: A,
-        group: S::GroupBy,
-    ) -> (<A::Context as ReachableContext>::Address, Relation<S>)
+    pub fn spawn_agent<A>(&mut self, agent: A, group: S::GroupBy) -> (Link<A>, Relation<S>)
     where
         A: Agent,
         A::Context: Default,
     {
         let runtime = RunAgent::<A>::new(agent);
-        self.spawn_runtime(runtime, group)
+        let (address, relation) = self.spawn_runtime(runtime, group);
+        (address.into(), relation)
     }
 
     pub fn spawn_runtime<B>(

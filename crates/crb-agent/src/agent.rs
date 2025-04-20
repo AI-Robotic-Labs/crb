@@ -107,8 +107,7 @@ pub trait Standalone: Agent {
     where
         Self::Context: Default,
     {
-        let address = RunAgent::new(self).spawn_connected();
-        Link::from(address)
+        RunAgent::new(self).spawn_connected().into()
     }
 
     // TODO: spawn_with_context()
