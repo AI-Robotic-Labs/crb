@@ -12,8 +12,8 @@ derive_more.workspace = true
 futures.workspace = true
 thiserror.workspace = true
 tokio = { workspace = true, features = ["sync"] }
-crb-core-std = { version = "0.0.35", path = "../crb-core-std", optional = true }
-crb-core-web = { version = "0.0.35", path = "../crb-core-web", optional = true }
+crb-core-std = { version = "0.0.36", path = "../crb-core-std", optional = true }
+crb-core-web = { version = "0.0.36", path = "../crb-core-web", optional = true }
 
 [features]
 default = ["std"]
