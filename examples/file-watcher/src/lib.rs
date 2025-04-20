@@ -36,6 +36,7 @@ impl Standalone for FileWatcher {}
 
 impl Agent for FileWatcher {
     type Context = StreamSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_async(Initialize)

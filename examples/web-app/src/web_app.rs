@@ -1,5 +1,5 @@
 use crate::worker::Worker;
-use crb::agent::{Address, Equip, Standalone};
+use crb::agent::{Link, Standalone};
 use crb::core::mpsc;
 use tokio_stream::wrappers::UnboundedReceiverStream;
 use yew::{html, Component, Context, Html};
@@ -11,7 +11,7 @@ pub enum Message {
 
 pub struct WebApp {
     crabs: usize,
-    _worker: Address<Worker>,
+    _worker: Link<Worker>,
 }
 
 impl Component for WebApp {
@@ -22,7 +22,7 @@ impl Component for WebApp {
         let (tx, rx) = mpsc::unbounded_channel();
         let stream = UnboundedReceiverStream::new(rx);
         ctx.link().send_stream(stream);
-        let worker = Worker::new(tx).spawn().equip();
+        let worker = Worker::new(tx).spawn();
         Self {
             crabs: 0,
             _worker: worker,

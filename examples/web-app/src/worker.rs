@@ -1,7 +1,7 @@
 use crate::web_app::Message;
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, Context, DoAsync, Next, OnEvent, Standalone};
+use crb::agent::{Agent, Address, Context, DoAsync, Next, OnEvent, Standalone};
 use crb::core::mpsc;
 use crb::superagent::{Interval, StreamSession, Tick};
 
@@ -23,6 +23,7 @@ impl Standalone for Worker {}
 
 impl Agent for Worker {
     type Context = StreamSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         log::info!("Worker STARTED!");

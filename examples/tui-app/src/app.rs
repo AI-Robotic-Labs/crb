@@ -2,7 +2,7 @@ use crate::events::EventsDrainer;
 use crate::state::AppState;
 use anyhow::Result;
 use async_trait::async_trait;
-use crb::agent::{Agent, AgentSession, Context, DoAsync, DoSync, ManagedContext, Next, OnEvent};
+use crb::agent::{Agent, AgentSession, Address, Context, DoAsync, DoSync, ManagedContext, Next, OnEvent};
 use crb::superagent::{Supervisor, SupervisorSession};
 use crossterm::event::{Event, KeyCode};
 use ratatui::DefaultTerminal;
@@ -28,6 +28,7 @@ impl Supervisor for TuiApp {
 
 impl Agent for TuiApp {
     type Context = SupervisorSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_async(Configure)

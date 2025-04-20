@@ -18,6 +18,7 @@ impl EventsDrainer {
 
 impl Agent for EventsDrainer {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_sync(())

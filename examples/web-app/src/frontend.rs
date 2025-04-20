@@ -1,6 +1,6 @@
 use crate::web_app::WebApp;
 use anyhow::Result;
-use crb::agent::{Agent, AgentSession, DoSync, Next, Standalone};
+use crb::agent::{Agent, AgentSession, Address, DoSync, Next, Standalone};
 
 pub struct Frontend;
 
@@ -14,6 +14,7 @@ impl Standalone for Frontend {}
 
 impl Agent for Frontend {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         // Important to check `DoSync` works
