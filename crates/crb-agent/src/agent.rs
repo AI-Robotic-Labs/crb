@@ -18,7 +18,13 @@ use std::any::type_name;
 /// for operation or reconfigured in a transactional mode.
 #[async_trait]
 pub trait Agent: Sized + Send + 'static {
+    /// `Context` is the functional environment in which an actor operates.
     type Context: AgentContext<Self>;
+
+    /// `Link` is a means of interacting with an actor—it essentially defines
+    /// the available methods that send specific types of messages.
+    ///
+    /// If a special interface is not required, it makes sense to simply use `Address<Self>`.
     type Link: From<Address<Self>>;
 
     /// The `initialize` method is called first when the actor starts.
