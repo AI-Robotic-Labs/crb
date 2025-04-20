@@ -1,6 +1,6 @@
 use anyhow::Result;
 use axum::{extract::Request, response::Redirect, routing::get, Router};
-use crb::agent::{Agent, AgentSession, Next};
+use crb::agent::{Agent, AgentSession, Address, Next};
 use crb_example_axum_handler::{AgentHandler, AxumAgent};
 
 #[tokio::main]
@@ -19,6 +19,7 @@ pub struct CrbWorld;
 
 impl Agent for CrbWorld {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::done()

@@ -129,3 +129,9 @@ impl<A: Agent> From<Address<A>> for Link<A> {
         }
     }
 }
+
+impl<A: Agent> Link<A> {
+    pub fn into_inner(self) -> A::Link {
+        self.inner
+    }
+}

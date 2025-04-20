@@ -1,7 +1,7 @@
 use anyhow::{Error, Result};
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
-use crb::agent::{Agent, AgentSession, DoAsync, DoSync, Next, Standalone};
+use crb::agent::{Address, Agent, AgentSession, DoAsync, DoSync, Next, Standalone};
 use csv::Writer;
 use db_dump::{crates::Row, Loader};
 use futures::StreamExt;
@@ -28,6 +28,7 @@ impl Standalone for CratesLoader {}
 
 impl Agent for CratesLoader {
     type Context = AgentSession<Self>;
+    type Link = Address<Self>;
 
     fn begin(&mut self) -> Next<Self> {
         Next::do_async(DownloadDump)
