@@ -1,23 +1,20 @@
-use crb::agent::{Agent, AgentSession, Context};
-use crb::superagent::{Request, OnRequest};
 use anyhow::Result;
 use async_trait::async_trait;
-use std::path::PathBuf;
-use toml::Value;
-use tokio::fs;
-use std::marker::PhantomData;
+use crb::agent::{Agent, AgentSession, Context};
+use crb::superagent::{OnRequest, Request};
 use serde::de::DeserializeOwned;
+use std::marker::PhantomData;
+use std::path::PathBuf;
+use tokio::fs;
+use toml::Value;
 
 pub trait Config: DeserializeOwned + Send + 'static {
     // TODO: const NAMESPACE
 }
 
-impl<T> Config for T
-where T: DeserializeOwned + Send + 'static {}
+impl<T> Config for T where T: DeserializeOwned + Send + 'static {}
 
-
-pub struct ConfigAgent {
-}
+pub struct ConfigAgent {}
 
 impl Agent for ConfigAgent {
     type Context = AgentSession<Self>;
