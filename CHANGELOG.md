@@ -12,6 +12,7 @@
 
 - **Link** - Agents have an assigned `Link` type which instance will be produces from an `Address` to provide
 a convenient interface to interact with an `Actor`.
+- **Link Wrapper** - A special `Link` wrapper provide an universal type to declare a standard link assigned to an agent.
 
 # CRB v0.0.35 - 2025-04-12
 
